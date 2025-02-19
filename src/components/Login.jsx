@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 
 const title = "Login";
 const socialTitle = "Login With Social Media";
@@ -36,7 +37,7 @@ const socialList = [
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  const { signUpWithGmail, login } = useContext(AuthContext);
+  const { signUpWithGmail, login, signUpWithGithub } = useContext(AuthContext);
 
   // console.log(signUpWithGmail);
   const location = useLocation();
@@ -45,8 +46,8 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
 
   // login with google
-  const handleRegister = () => {
-    signUpWithGmail()
+  const handleRegister = (provider) => {
+    provider()
       .then((result) => {
         const user = result.user;
         navigate(from, { replace: true });
@@ -133,29 +134,14 @@ const Login = () => {
               <h5 className="subtitle">{socialTitle}</h5>
               <ul className="lab-ul social-icons justify-content-center">
                 <li>
-                  <button onClick={handleRegister} className="github">
-                    <i className="icofont-github"></i>
-                  </button>
+                  <Link onClick={() => handleRegister(signUpWithGmail)} className="instagram">
+                    <FaGoogle />
+                  </Link>
                 </li>
                 <li>
-                  <a href="/" className="facebook">
-                    <i className="icofont-facebook"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="/" className="twitter">
-                    <i className="icofont-twitter"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="/" className="linkedin">
-                    <i className="icofont-linkedin"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="/" className="instagram">
-                    <i className="icofont-instagram"></i>
-                  </a>
+                  <Link className="facebook">
+                    <FaGithub onClick={() => handleRegister(signUpWithGithub)} />
+                  </Link>
                 </li>
               </ul>
             </div>
