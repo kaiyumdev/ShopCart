@@ -42,16 +42,12 @@ const SingleProduct = () => {
                           <Swiper
                             spaceBetween={30}
                             slidesPerView={1}
-                            loop={"true"}
+                            loop={result.length > 1}  // ✅ Only enable loop if there are at least 2 slides
                             autoplay={{
                               delay: 2000,
                               disableOnInteraction: false,
                             }}
                             modules={[Autoplay]}
-                            navigation={{
-                              prevEl: ".pro-single-prev",
-                              nextEl: ".pro-single-next",
-                            }}
                           >
                             {result.map((item, i) => (
                               <SwiperSlide key={i}>
